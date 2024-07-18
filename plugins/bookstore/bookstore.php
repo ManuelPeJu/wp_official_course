@@ -57,3 +57,13 @@ function bookstore_register_genre_taxonomy(){
     register_taxonomy('genre', 'book', $args );
 };
 add_action('init', 'bookstore_register_genre_taxonomy');
+
+// Ejemplo para agregar metadatos
+function bookstore_add_isbn_to_quick_edit($keys, $post) {
+    if($post->post_type === 'book') {
+        $keys[] = 'isbn';
+    }
+
+    return $keys;
+}
+add_filter('postmeta_form_keys', 'bookstore_add_isbn_to_quick_edit', 10, 2);
